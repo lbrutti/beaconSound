@@ -6,7 +6,6 @@ var scanner = new BeaconScanner();
 scanner.onadvertisement = (advertisement) => {
 if (advertisement["beaconType"]== "eddystoneTlm")
     console.log(JSON.stringify(advertisement, null, "    "))
-
 };
 
 scanner.startScan().then(() => {
