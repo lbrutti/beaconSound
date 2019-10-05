@@ -1,15 +1,36 @@
 const Noble = require("noble");
 const BeaconScanner = require("node-beacon-scanner");
+let scanner = new BeaconScanner();
 
-var scanner = new BeaconScanner();
-
+const soundplayer = require("sound-player");
+let options = {
+    filename: "loops/ding.wav",
+    gain: 100,
+    debug: false,
+    player: "aplay", // "afplay" "aplay" "mpg123" "mpg321"
+    device: "plughw:0,0"   //
+}
+ 
+let player = new soundplayer(options)
+ 
+player.on('complete', function() {
+    console.log('Done with playback!');
+});
+ 
+player.on('error', function(err) {
+    console.log('Error occurred:', err);
+});
 scanner.onadvertisement = (advertisement) => {
-if (advertisement["beaconType"]== "eddystoneTlm")
-    console.log(JSON.stringify(advertisement, null, "    "))
+    if (advertisement["beaconType"] == "eddystoneTlm") {
+        try {
+            player.play();
+            console.log(JSON.stringify(advertisement, null, "    "))
+        } catch (e) { console.error(e) }
+    }
 };
 
 scanner.startScan().then(() => {
-    console.log("Scanning for BLE devices...")  ;
+    console.log("Scanning for BLE devices...");
 }).catch((error) => {
     console.error(error);
 });
