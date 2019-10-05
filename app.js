@@ -10,21 +10,28 @@ let options = {
     player: "aplay", // "afplay" "aplay" "mpg123" "mpg321"
     device: "plughw:0,0"   //
 }
- 
+
+let isPlaying = false;
+
 let player = new soundplayer(options)
- 
-player.on('complete', function() {
+
+player.on('complete', function () {
     console.log('Done with playback!');
+    isPlaying = false;
 });
- 
-player.on('error', function(err) {
+
+player.on('error', function (err) {
     console.log('Error occurred:', err);
 });
 scanner.onadvertisement = (advertisement) => {
     if (advertisement["beaconType"] == "eddystoneTlm") {
         try {
-            player.play();
+            if (!isPlaying) {
+                isPlaying = true;
+                player.play();
+            }
             console.log(JSON.stringify(advertisement, null, "    "))
+
         } catch (e) { console.error(e) }
     }
 };
