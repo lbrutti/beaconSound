@@ -13,6 +13,7 @@
   "dependencies": {
     "noble": "^1.9.1",
     "node-beacon-scanner": "^0.1.1",
+    "osc": "^2.2.4",
     "sound-player": "^1.0.13"
   },
   "devDependencies": {}
