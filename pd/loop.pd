@@ -8,7 +8,8 @@
 #X obj 249 183 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X msg 176 63 open ../loops/ding.wav \, 1;
-#X obj 114 68 osc~ 1000;
+#X msg 307 223 \; pd dsp 1;
+#X obj 294 177 delay 100;
 #X connect 0 0 4 0;
 #X connect 0 1 1 0;
 #X connect 1 0 7 0;
@@ -17,6 +18,6 @@
 #X connect 4 0 2 1;
 #X connect 5 0 6 0;
 #X connect 5 0 7 0;
-#X connect 6 0 2 0;
+#X connect 5 0 9 0;
 #X connect 7 0 0 0;
-#X connect 8 0 2 0;
+#X connect 9 0 8 0;
