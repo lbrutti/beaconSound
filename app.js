@@ -48,7 +48,15 @@ scanner.onadvertisement = (advertisement) => {
             //     isPlaying = true;
             //     player.play();
             // }
+            let msg = {
+                address: "/oscjs",
+                args: [{type:"f", value:(100-Math.abs(advertisement.rssi))/10}]
+                
+            };
+        
+            console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
             console.log(JSON.stringify(advertisement, null, "    "))
+            udpPort.send(msg);
 
         } catch (e) { console.error(e) }
     }
@@ -65,12 +73,5 @@ scanner.startScan().then(() => {
 
 // Every second, send an OSC message to SuperCollider
 setInterval(function() {
-    var msg = {
-        address: "/oscjs",
-        args: [{type:"f", value:1}]
-        
-    };
-
-    console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
-    udpPort.send(msg);
+    
 }, 1000);
